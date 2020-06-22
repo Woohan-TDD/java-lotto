@@ -1,15 +1,16 @@
 package lotto.domain.lottery;
 
-import static java.util.stream.Collectors.toList;
+import static lotto.domain.lottery.LottoTicketUtil.generateLottoNumbers;
+import static lotto.domain.lottery.LottoTicketUtil.generateLottoTicket;
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.api.Assertions.assertThatThrownBy;
 
-import java.util.Arrays;
 import java.util.List;
 
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.ParameterizedTest;
+import org.junit.jupiter.params.provider.CsvSource;
 import org.junit.jupiter.params.provider.ValueSource;
 
 import lotto.exception.InvalidLottoNumberException;
@@ -55,25 +56,29 @@ class LottoTicketTest {
         assertThat(LottoTicket.ofComma(numbers)).isInstanceOf(LottoTicket.class);
     }
 
+    @DisplayName("특정한 로또 번호를 포함하고 있는지 확인")
+    @CsvSource(value = {"2,true", "7,false"})
+    @ParameterizedTest
+    void contains(final int number, final boolean expect) {
+        LottoTicket lottoTicket = generateLottoTicket(1, 2, 3, 4, 5, 6);
+        LottoNumber lottoNumber = LottoNumber.valueOf(number);
+
+        assertThat(lottoTicket.contains(lottoNumber)).isEqualTo(expect);
+    }
+
     @DisplayName("생성된 로또 티켓의 값이 같은지 확인")
     @Test
     void getLottoNumbers() {
-        LottoTicket lottoTicket = new LottoTicket(generateLottoNumbers(1, 2, 3, 4, 5, 6));
+        LottoTicket lottoTicket = generateLottoTicket(1, 2, 3, 4, 5, 6);
         assertThat(lottoTicket.getLottoNumbers()).isEqualTo(generateLottoNumbers(1, 2, 3, 4, 5, 6));
     }
 
     @DisplayName("같은 로또 수를 가지는 티켓이 논리적으로 동일한지 확인")
     @Test
     void equals() {
-        LottoTicket lottoTicket1 = new LottoTicket(generateLottoNumbers(1, 2, 3, 4, 5, 6));
-        LottoTicket lottoTicket2 = new LottoTicket(generateLottoNumbers(4, 5, 6, 1, 2, 3));
+        LottoTicket lottoTicket1 = generateLottoTicket(1, 2, 3, 4, 5, 6);
+        LottoTicket lottoTicket2 = generateLottoTicket(4, 5, 6, 1, 2, 3);
 
         assertThat(lottoTicket1).isEqualTo(lottoTicket2);
-    }
-
-    List<LottoNumber> generateLottoNumbers(int... numbers) {
-        return Arrays.stream(numbers)
-                .mapToObj(LottoNumber::valueOf)
-                .collect(toList());
     }
 }

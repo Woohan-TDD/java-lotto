@@ -31,6 +31,17 @@ public class LottoTicket {
         return new LottoTicket(lottoNumbers);
     }
 
+    public boolean contains(final LottoNumber lottoNumber) {
+        return lottoNumbers.contains(lottoNumber);
+    }
+
+    public int match(final LottoTicket that) {
+        return (int)that.lottoNumbers
+                .stream()
+                .filter(this::contains)
+                .count();
+    }
+
     private void validateLottoNumbers(final List<LottoNumber> lottoNumbers) {
         Objects.requireNonNull(lottoNumbers, "입력받은 리스트가 존재하지 않습니다.");
         validateSize(lottoNumbers);
