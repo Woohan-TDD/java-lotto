@@ -1,10 +1,12 @@
-package lotto.domain;
+package lotto.domain.purchase;
 
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.api.Assertions.assertThatThrownBy;
 
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
+
+import lotto.exception.InvalidPurchaseAmountException;
 
 class PurchaseAmountTest {
     @DisplayName("수동 구입 개수를 입력하여 인스턴스 생성")

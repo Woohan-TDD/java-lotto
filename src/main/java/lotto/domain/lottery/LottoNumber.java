@@ -1,8 +1,10 @@
-package lotto.domain;
+package lotto.domain.lottery;
 
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Objects;
+
+import lotto.exception.InvalidLottoNumberException;
 
 public class LottoNumber implements Comparable<LottoNumber> {
     private static final int MIN_NUMBER = 1;

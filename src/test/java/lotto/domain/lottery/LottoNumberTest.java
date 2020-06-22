@@ -1,4 +1,4 @@
-package lotto.domain;
+package lotto.domain.lottery;
 
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.api.Assertions.assertThatThrownBy;
@@ -9,6 +9,8 @@ import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.EmptySource;
 import org.junit.jupiter.params.provider.NullSource;
 import org.junit.jupiter.params.provider.ValueSource;
+
+import lotto.exception.InvalidLottoNumberException;
 
 class LottoNumberTest {
     @DisplayName("숫자를 입력하여 로또 번호 생성")
@@ -72,13 +74,6 @@ class LottoNumberTest {
         LottoNumber expect = LottoNumber.valueOf(20);
         LottoNumber actual = LottoNumber.valueOf(21);
         assertThat(actual.equals(expect)).isFalse();
-    }
-
-    @DisplayName("null과 비교하는 경우 논리적으로 다름")
-    @Test
-    void equals_CompareToNull() {
-        LottoNumber lottoNumber = LottoNumber.valueOf(20);
-        assertThat(lottoNumber.equals(null)).isFalse();
     }
 
     @DisplayName("같은 값을 가지는 로또 객체가 같은 해시값을 가짐")

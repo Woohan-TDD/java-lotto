@@ -1,4 +1,6 @@
-package lotto.domain;
+package lotto.domain.purchase;
+
+import lotto.exception.InvalidMoneyAmountException;
 
 public class Money {
     private static final int MONEY_UNIT = 1000;

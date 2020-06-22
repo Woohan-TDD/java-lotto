@@ -1,4 +1,4 @@
-package lotto.domain;
+package lotto.domain.lottery;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -8,6 +8,8 @@ import java.util.List;
 import java.util.Objects;
 import java.util.Set;
 import java.util.stream.Collectors;
+
+import lotto.exception.InvalidLottoNumberException;
 
 public class LottoTicket {
     private static final int TOTAL_LOTTO_NUMBER = 6;
