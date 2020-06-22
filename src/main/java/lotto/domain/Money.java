@@ -2,6 +2,7 @@ package lotto.domain;
 
 public class Money {
     private static final int MONEY_UNIT = 1000;
+    private static final int MIN_MONEY_AMOUNT = 0;
 
     private final int amount;
 
@@ -22,7 +23,7 @@ public class Money {
     }
 
     private void validateAmountRange(final int amount) {
-        if (amount <= 0) {
+        if (amount <= MIN_MONEY_AMOUNT) {
             throw new InvalidMoneyAmountException("입력한 금액이 양수가 아닙니다: " + amount);
         }
     }
