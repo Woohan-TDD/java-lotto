@@ -20,4 +20,11 @@ class PurchaseAmountTest {
                 .isInstanceOf(InvalidPurchaseAmountException.class)
                 .hasMessageContaining("구입할 금액이 올바르지 않습니다");
     }
+
+    @DisplayName("생성된 구매 수량의 값을 확인")
+    @Test
+    void getAmount() {
+        PurchaseAmount purchaseAmount = new PurchaseAmount(20);
+        assertThat(purchaseAmount.getAmount()).isEqualTo(20);
+    }
 }

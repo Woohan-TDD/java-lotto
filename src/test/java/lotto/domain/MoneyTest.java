@@ -32,4 +32,11 @@ class MoneyTest {
                 .isInstanceOf(InvalidMoneyAmountException.class)
                 .hasMessageContaining("입력한 금액이 1,000 단위로 나누어 떨어지지 않습니다");
     }
+
+    @DisplayName("생성된 money의 값을 확인")
+    @Test
+    void getAmount() {
+        Money money = new Money(20_000);
+        assertThat(money.getAmount()).isEqualTo(20_000);
+    }
 }
