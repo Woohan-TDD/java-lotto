@@ -4,7 +4,7 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.Objects;
 
-public class LottoNumber {
+public class LottoNumber implements Comparable<LottoNumber> {
     private static final int MIN_NUMBER = 1;
     private static final int MAX_NUMBER = 45;
 
@@ -18,6 +18,11 @@ public class LottoNumber {
     public static LottoNumber valueOf(final int number) {
         validateNumberRange(number);
         return LottoNumberCache.get(number);
+    }
+
+    public static LottoNumber valueOf(final String number) {
+        Objects.requireNonNull(number, "입력한 값이 존재하지 않습니다.");
+        return valueOf(Integer.parseInt(number.trim()));
     }
 
     private static void validateNumberRange(final int number) {
@@ -36,13 +41,18 @@ public class LottoNumber {
             return true;
         if (o == null || getClass() != o.getClass())
             return false;
-        LottoNumber that = (LottoNumber)o;
+        final LottoNumber that = (LottoNumber)o;
         return number == that.number;
     }
 
     @Override
     public int hashCode() {
         return Objects.hash(number);
+    }
+
+    @Override
+    public int compareTo(final LottoNumber that) {
+        return Integer.compare(this.number, that.number);
     }
 
     private static class LottoNumberCache {
