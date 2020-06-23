@@ -2,8 +2,6 @@ package lotto.domain.lottery;
 
 import java.util.Objects;
 
-import lotto.exception.InvalidWinningLottoException;
-
 public class WinningLotto {
     private final LottoTicket lottoTicket;
     private final LottoNumber bonusNumber;

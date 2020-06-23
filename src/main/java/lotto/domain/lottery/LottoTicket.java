@@ -9,8 +9,6 @@ import java.util.Objects;
 import java.util.Set;
 import java.util.stream.Collectors;
 
-import lotto.exception.InvalidLottoNumberException;
-
 public class LottoTicket {
     private static final int TOTAL_LOTTO_NUMBER = 6;
     private static final String NUMBER_DELIMITER = ",";

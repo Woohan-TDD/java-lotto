@@ -13,8 +13,6 @@ import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.CsvSource;
 import org.junit.jupiter.params.provider.ValueSource;
 
-import lotto.exception.InvalidLottoNumberException;
-
 class LottoTicketTest {
     @DisplayName("로또 번호를 입력하여 로또 한 장 생성")
     @Test

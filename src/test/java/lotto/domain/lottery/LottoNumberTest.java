@@ -10,8 +10,6 @@ import org.junit.jupiter.params.provider.EmptySource;
 import org.junit.jupiter.params.provider.NullSource;
 import org.junit.jupiter.params.provider.ValueSource;
 
-import lotto.exception.InvalidLottoNumberException;
-
 class LottoNumberTest {
     @DisplayName("숫자를 입력하여 로또 번호 생성")
     @ValueSource(ints = {1, 20, 45})

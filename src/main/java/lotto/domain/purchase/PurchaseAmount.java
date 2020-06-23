@@ -1,7 +1,5 @@
 package lotto.domain.purchase;
 
-import lotto.exception.InvalidPurchaseAmountException;
-
 public class PurchaseAmount {
     private static final int MIN_PURCHASE_AMOUNT = 0;
 
