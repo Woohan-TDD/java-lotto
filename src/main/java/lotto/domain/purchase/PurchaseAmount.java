@@ -14,7 +14,7 @@ public class PurchaseAmount {
         return this.amount != amount;
     }
 
-    private void validateAmount(int amount) {
+    private void validateAmount(final int amount) {
         if (amount < MIN_PURCHASE_AMOUNT) {
             throw new InvalidPurchaseAmountException("구입할 개수가 올바르지 않습니다: " + amount);
         }

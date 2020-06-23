@@ -9,7 +9,7 @@ public class LottoTicketMachineFactory {
         throw new AssertionError();
     }
 
-    public static LottoTicketMachine createManualTicketMachine(List<LottoTicket> lottoTickets) {
+    public static LottoTicketMachine createManualTicketMachine(final List<LottoTicket> lottoTickets) {
         return new ManualLottoTicketMachine(lottoTickets);
     }
 

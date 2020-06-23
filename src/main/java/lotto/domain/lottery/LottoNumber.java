@@ -36,7 +36,7 @@ public class LottoNumber implements Comparable<LottoNumber> {
     }
 
     @Override
-    public boolean equals(Object o) {
+    public boolean equals(final Object o) {
         if (this == o)
             return true;
         if (o == null || getClass() != o.getClass())
@@ -64,7 +64,7 @@ public class LottoNumber implements Comparable<LottoNumber> {
             }
         }
 
-        static LottoNumber get(int number) {
+        static LottoNumber get(final int number) {
             return cache.get(number);
         }
     }

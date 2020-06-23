@@ -1,7 +1,7 @@
 package lotto.domain.purchase;
 
 public class InvalidPurchaseAmountException extends RuntimeException {
-    public InvalidPurchaseAmountException(String message) {
+    public InvalidPurchaseAmountException(final String message) {
         super(message);
     }
 }

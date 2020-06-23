@@ -28,7 +28,7 @@ public enum Rank {
                 .orElseThrow(() -> new RankNotFoundException("일치하는 순위를 찾을 수 없습니다."));
     }
 
-    public long calculateTotalPrize(long count) {
+    public long calculateTotalPrize(final long count) {
         return prize * count;
     }
 
