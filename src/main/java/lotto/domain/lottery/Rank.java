@@ -25,10 +25,10 @@ public enum Rank {
         return Arrays.stream(values())
                 .filter(rank -> rank.matchRankWith(matchCount, isBonus))
                 .findFirst()
-                .orElseThrow(IllegalArgumentException::new);
+                .orElseThrow(() -> new RankNotFoundException("일치하는 순위를 찾을 수 없습니다."));
     }
 
-    public long calculateTotalPrize(int count) {
+    public long calculateTotalPrize(long count) {
         return prize * count;
     }
 

@@ -1,6 +1,7 @@
 package lotto.domain.lottery;
 
 import static org.assertj.core.api.Assertions.assertThat;
+import static org.assertj.core.api.Assertions.assertThatThrownBy;
 
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
@@ -48,9 +49,17 @@ class RankTest {
         assertThat(Rank.match(2, isBonus)).isEqualTo(Rank.NOTHING);
     }
 
+    @DisplayName("일치하는 순위를 찾을 수 없는 경우 예외 발생")
+    @Test
+    void match_LessThanThreeNumberMatch_Nothing() {
+        assertThatThrownBy(() -> Rank.match(6, true))
+                .isInstanceOf(RankNotFoundException.class)
+                .hasMessageContaining("일치하는 순위를 찾을 수 없습니다");
+    }
+
     @DisplayName("당첨 개수를 입력받아 총 당첨액 계산")
     @Test
     void calculateTotalPrize() {
-        assertThat(Rank.FIRST.calculateTotalPrize(15)).isEqualTo(30_000_000_000L);
+        assertThat(Rank.FIRST.calculateTotalPrize(15L)).isEqualTo(30_000_000_000L);
     }
 }
