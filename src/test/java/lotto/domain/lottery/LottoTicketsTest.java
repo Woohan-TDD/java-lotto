@@ -11,7 +11,7 @@ import java.util.List;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 
-public class LottoTicketsTest {
+class LottoTicketsTest {
     @DisplayName("여러장의 로또 티켓 생성")
     @Test
     void constructor() {
