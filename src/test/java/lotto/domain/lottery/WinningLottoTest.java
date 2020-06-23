@@ -1,28 +1,20 @@
 package lotto.domain.lottery;
 
 import static lotto.domain.lottery.LottoTicketUtil.generateLottoTicket;
+import static lotto.domain.lottery.LottoTicketUtil.generateLottoTickets;
+import static lotto.domain.lottery.Rank.FIRST;
+import static lotto.domain.lottery.Rank.FOURTH;
+import static lotto.domain.lottery.Rank.NOTHING;
+import static lotto.domain.lottery.Rank.SECOND;
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.api.Assertions.assertThatThrownBy;
-
-import java.util.Arrays;
-import java.util.List;
-import java.util.stream.Stream;
 
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
-import org.junit.jupiter.params.provider.Arguments;
 
 class WinningLottoTest {
     private LottoTicket lottoTicket;
-
-    private static Stream<Arguments> generateLottoTickets() {
-        return Stream.of(
-                Arguments.of(generateLottoTicket(1, 2, 3, 4, 5, 6), 6),
-                Arguments.of(generateLottoTicket(1, 2, 3, 7, 8, 9), 3),
-                Arguments.of(generateLottoTicket(7, 8, 9, 10, 11, 12), 0)
-        );
-    }
 
     @BeforeEach
     void setUp() {
@@ -89,21 +81,27 @@ class WinningLottoTest {
         WinningLotto winningLotto = new WinningLotto(lottoTicket, bonusNumber);
         LottoTicket ticket = generateLottoTicket(1, 2, 3, 4, 5, 6);
 
-        assertThat(winningLotto.match(ticket)).isEqualTo(Rank.FIRST);
+        assertThat(winningLotto.match(ticket)).isEqualTo(FIRST);
     }
 
     @DisplayName("로또 여러장을 입력받아 순위 계산")
     @Test
     void matchAll() {
-        List<Rank> expect = Arrays.asList(Rank.FIRST, Rank.SECOND, Rank.FOURTH);
         LottoNumber bonusNumber = LottoNumber.valueOf(7);
         WinningLotto winningLotto = new WinningLotto(lottoTicket, bonusNumber);
-        List<LottoTicket> tickets = Arrays.asList(
+
+        LottoTickets tickets = generateLottoTickets(
+                generateLottoTicket(1, 2, 3, 4, 5, 6),
                 generateLottoTicket(1, 2, 3, 4, 5, 6),
                 generateLottoTicket(1, 2, 3, 4, 5, 7),
                 generateLottoTicket(1, 2, 3, 4, 23, 24)
         );
 
-        assertThat(winningLotto.matchAll(tickets)).isEqualTo(expect);
+        MatchResult matchResult = winningLotto.matchAll(tickets);
+
+        assertThat(matchResult.getCount(FIRST)).isEqualTo(2L);
+        assertThat(matchResult.getCount(SECOND)).isEqualTo(1L);
+        assertThat(matchResult.getCount(FOURTH)).isEqualTo(1L);
+        assertThat(matchResult.getCount(NOTHING)).isEqualTo(0L);
     }
 }

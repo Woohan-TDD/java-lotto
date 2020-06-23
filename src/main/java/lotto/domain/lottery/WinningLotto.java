@@ -1,8 +1,9 @@
 package lotto.domain.lottery;
 
-import static java.util.stream.Collectors.toList;
+import static java.util.stream.Collectors.collectingAndThen;
+import static java.util.stream.Collectors.counting;
+import static java.util.stream.Collectors.groupingBy;
 
-import java.util.List;
 import java.util.Objects;
 
 public class WinningLotto {
@@ -15,13 +16,14 @@ public class WinningLotto {
         this.bonusNumber = bonusNumber;
     }
 
-    public List<Rank> matchAll(final List<LottoTicket> tickets) {
-        return tickets.stream()
+    public MatchResult matchAll(final LottoTickets tickets) {
+        return tickets.getLottoTickets()
+                .stream()
                 .map(this::match)
-                .collect(toList());
+                .collect(collectingAndThen(groupingBy(rank -> rank, counting()), MatchResult::new));
     }
 
-    public Rank match(final LottoTicket ticket) {
+    Rank match(final LottoTicket ticket) {
         return Rank.match(lottoTicket.match(ticket), containsBonus(ticket));
     }
 
