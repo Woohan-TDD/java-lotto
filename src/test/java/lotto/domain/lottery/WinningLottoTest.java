@@ -4,14 +4,14 @@ import static lotto.domain.lottery.LottoTicketUtil.generateLottoTicket;
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.api.Assertions.assertThatThrownBy;
 
+import java.util.Arrays;
+import java.util.List;
 import java.util.stream.Stream;
 
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
-import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.Arguments;
-import org.junit.jupiter.params.provider.MethodSource;
 
 class WinningLottoTest {
     private LottoTicket lottoTicket;
@@ -72,7 +72,7 @@ class WinningLottoTest {
                 .hasMessageContaining("우승 번호와 보너스 번호가 중복됩니다");
     }
 
-    @DisplayName("보너스 번호를 포함")
+    @DisplayName("보너스 번호 포함 여부를 확인")
     @Test
     void containsBonus() {
         LottoNumber bonusNumber = LottoNumber.valueOf(7);
@@ -82,23 +82,28 @@ class WinningLottoTest {
         assertThat(winningLotto.containsBonus(ticket)).isTrue();
     }
 
-    @DisplayName("보너스 번호를 포함하지 않음")
+    @DisplayName("로또 한장을 입력받아 순위 계산")
     @Test
-    void excludeBonus() {
+    void match() {
         LottoNumber bonusNumber = LottoNumber.valueOf(7);
         WinningLotto winningLotto = new WinningLotto(lottoTicket, bonusNumber);
         LottoTicket ticket = generateLottoTicket(1, 2, 3, 4, 5, 6);
 
-        assertThat(winningLotto.excludeBonus(ticket)).isTrue();
+        assertThat(winningLotto.match(ticket)).isEqualTo(Rank.FIRST);
     }
 
-    @DisplayName("보너스 번호를 제외하고 일치하는 로또 번호의 수를 계산")
-    @MethodSource("generateLottoTickets")
-    @ParameterizedTest
-    void match(final LottoTicket ticket, final int expect) {
+    @DisplayName("로또 여러장을 입력받아 순위 계산")
+    @Test
+    void matchAll() {
+        List<Rank> expect = Arrays.asList(Rank.FIRST, Rank.SECOND, Rank.FOURTH);
         LottoNumber bonusNumber = LottoNumber.valueOf(7);
         WinningLotto winningLotto = new WinningLotto(lottoTicket, bonusNumber);
+        List<LottoTicket> tickets = Arrays.asList(
+                generateLottoTicket(1, 2, 3, 4, 5, 6),
+                generateLottoTicket(1, 2, 3, 4, 5, 7),
+                generateLottoTicket(1, 2, 3, 4, 23, 24)
+        );
 
-        assertThat(winningLotto.match(ticket)).isEqualTo(expect);
+        assertThat(winningLotto.matchAll(tickets)).isEqualTo(expect);
     }
 }

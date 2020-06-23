@@ -1,5 +1,8 @@
 package lotto.domain.lottery;
 
+import static java.util.stream.Collectors.toList;
+
+import java.util.List;
 import java.util.Objects;
 
 public class WinningLotto {
@@ -12,16 +15,18 @@ public class WinningLotto {
         this.bonusNumber = bonusNumber;
     }
 
-    public int match(final LottoTicket ticket) {
-        return lottoTicket.match(ticket);
+    public List<Rank> matchAll(final List<LottoTicket> tickets) {
+        return tickets.stream()
+                .map(this::match)
+                .collect(toList());
+    }
+
+    public Rank match(final LottoTicket ticket) {
+        return Rank.match(lottoTicket.match(ticket), containsBonus(ticket));
     }
 
     public boolean containsBonus(final LottoTicket ticket) {
         return ticket.contains(bonusNumber);
-    }
-
-    public boolean excludeBonus(final LottoTicket ticket) {
-        return !ticket.contains(bonusNumber);
     }
 
     private void validateWinningLotto(final LottoTicket lottoTicket, final LottoNumber bonusNumber) {
