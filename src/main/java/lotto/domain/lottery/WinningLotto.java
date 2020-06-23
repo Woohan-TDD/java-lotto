@@ -4,6 +4,7 @@ import static java.util.stream.Collectors.collectingAndThen;
 import static java.util.stream.Collectors.counting;
 import static java.util.stream.Collectors.groupingBy;
 
+import java.util.List;
 import java.util.Objects;
 
 public class WinningLotto {
@@ -16,9 +17,8 @@ public class WinningLotto {
         this.bonusNumber = bonusNumber;
     }
 
-    public MatchResult matchAll(final LottoTickets tickets) {
-        return tickets.getLottoTickets()
-                .stream()
+    public MatchResult matchAll(final List<LottoTicket> tickets) {
+        return tickets.stream()
                 .map(this::match)
                 .collect(collectingAndThen(groupingBy(rank -> rank, counting()), MatchResult::new));
     }

@@ -35,4 +35,12 @@ public enum Rank {
     private boolean matchRankWith(final Integer winningLotto, final Boolean lottoTicket) {
         return matchPredicate.test(winningLotto, lottoTicket);
     }
+
+    public int getMatchCount() {
+        return matchCount;
+    }
+
+    public long getPrize() {
+        return prize;
+    }
 }

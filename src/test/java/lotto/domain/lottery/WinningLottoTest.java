@@ -1,13 +1,15 @@
 package lotto.domain.lottery;
 
 import static lotto.domain.lottery.LottoTicketUtil.generateLottoTicket;
-import static lotto.domain.lottery.LottoTicketUtil.generateLottoTickets;
 import static lotto.domain.lottery.Rank.FIRST;
 import static lotto.domain.lottery.Rank.FOURTH;
 import static lotto.domain.lottery.Rank.NOTHING;
 import static lotto.domain.lottery.Rank.SECOND;
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.api.Assertions.assertThatThrownBy;
+
+import java.util.Arrays;
+import java.util.List;
 
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
@@ -90,7 +92,7 @@ class WinningLottoTest {
         LottoNumber bonusNumber = LottoNumber.valueOf(7);
         WinningLotto winningLotto = new WinningLotto(lottoTicket, bonusNumber);
 
-        LottoTickets tickets = generateLottoTickets(
+        List<LottoTicket> tickets = Arrays.asList(
                 generateLottoTicket(1, 2, 3, 4, 5, 6),
                 generateLottoTicket(1, 2, 3, 4, 5, 6),
                 generateLottoTicket(1, 2, 3, 4, 5, 7),
