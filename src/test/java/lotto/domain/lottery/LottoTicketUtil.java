@@ -10,18 +10,18 @@ class LottoTicketUtil {
         throw new AssertionError();
     }
 
-    static LottoTicket generateLottoTicket(int... numbers) {
+    static LottoTicket generateLottoTicket(final int... numbers) {
         List<LottoNumber> lottoNumbers = generateLottoNumbers(numbers);
         return new LottoTicket(lottoNumbers);
     }
 
-    static List<LottoNumber> generateLottoNumbers(int... numbers) {
+    static List<LottoNumber> generateLottoNumbers(final int... numbers) {
         return Arrays.stream(numbers)
                 .mapToObj(LottoNumber::valueOf)
                 .collect(toList());
     }
 
-    static LottoTickets generateLottoTickets(LottoTicket... tickets) {
+    static LottoTickets generateLottoTickets(final LottoTicket... tickets) {
         return new LottoTickets(Arrays.asList(tickets));
     }
 }

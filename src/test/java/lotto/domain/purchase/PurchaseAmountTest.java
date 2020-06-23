@@ -18,7 +18,7 @@ class PurchaseAmountTest {
     void constructor_PurchaseAmountSmallerThanZero_ExceptionThrown() {
         assertThatThrownBy(() -> new PurchaseAmount(-1))
                 .isInstanceOf(InvalidPurchaseAmountException.class)
-                .hasMessageContaining("구입할 금액이 올바르지 않습니다");
+                .hasMessageContaining("구입할 개수가 올바르지 않습니다");
     }
 
     @DisplayName("생성된 구매 수량의 값을 확인")

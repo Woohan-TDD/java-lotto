@@ -1,5 +1,8 @@
 package lotto.domain.lottery;
 
+import static java.util.stream.Collectors.collectingAndThen;
+import static java.util.stream.Collectors.toList;
+
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collections;
@@ -7,7 +10,6 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Objects;
 import java.util.Set;
-import java.util.stream.Collectors;
 
 public class LottoTicket {
     public static final int TOTAL_LOTTO_NUMBER = 6;
@@ -22,11 +24,16 @@ public class LottoTicket {
         this.lottoNumbers = copiedLottoNumbers;
     }
 
-    public static LottoTicket ofComma(final String numbersWithComma) {
-        final List<LottoNumber> lottoNumbers = Arrays.stream(numbersWithComma.split(NUMBER_DELIMITER))
+    public static LottoTicket ofNumbers(final List<Integer> numbers) {
+        return numbers.stream()
                 .map(LottoNumber::valueOf)
-                .collect(Collectors.toList());
-        return new LottoTicket(lottoNumbers);
+                .collect(collectingAndThen(toList(), LottoTicket::new));
+    }
+
+    public static LottoTicket ofComma(final String numbersWithComma) {
+        return Arrays.stream(numbersWithComma.split(NUMBER_DELIMITER))
+                .map(LottoNumber::valueOf)
+                .collect(collectingAndThen(toList(), LottoTicket::new));
     }
 
     public boolean contains(final LottoNumber lottoNumber) {

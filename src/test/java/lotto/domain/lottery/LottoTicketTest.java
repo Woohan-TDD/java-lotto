@@ -5,6 +5,7 @@ import static lotto.domain.lottery.LottoTicketUtil.generateLottoTicket;
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.api.Assertions.assertThatThrownBy;
 
+import java.util.Arrays;
 import java.util.List;
 
 import org.junit.jupiter.api.DisplayName;
@@ -45,6 +46,12 @@ class LottoTicketTest {
         assertThatThrownBy(() -> new LottoTicket(lottoNumbers))
                 .isInstanceOf(InvalidLottoNumberException.class)
                 .hasMessageContaining("입력받은 로또 수에 중복이 존재합니다");
+    }
+
+    @DisplayName("숫자 리스트를 입력받아 로또 티켓 생성")
+    @Test
+    void ofNumbers() {
+        assertThat(LottoTicket.ofNumbers(Arrays.asList(1, 2, 3, 4, 5, 6))).isInstanceOf(LottoTicket.class);
     }
 
     @DisplayName("숫자를 콤마 단위로 구분하여 입력받아 로또 티켓 생성")
