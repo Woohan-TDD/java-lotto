@@ -18,6 +18,10 @@ public class Money {
         this.amount -= spendMoney.amount;
     }
 
+    public boolean hasAvailableAmount() {
+        return amount != MIN_MONEY_AMOUNT;
+    }
+
     private void validateMoneyAvailability(final Money spendMoney) {
         if (this.amount < spendMoney.amount) {
             throw new LackOfMoneyException("금액이 부족합니다. " +

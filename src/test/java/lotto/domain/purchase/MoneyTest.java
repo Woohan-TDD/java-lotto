@@ -47,6 +47,15 @@ class MoneyTest {
         assertThat(actual).isEqualTo(expect);
     }
 
+    @DisplayName("돈을 0원 이상 가지고 있는지 확인")
+    @CsvSource(value = {"1000, true", "0,false"})
+    @ParameterizedTest
+    void hasAvailableAmount(final int amount, final boolean expect) {
+        Money money = new Money(amount);
+
+        assertThat(money.hasAvailableAmount()).isEqualTo(expect);
+    }
+
     @DisplayName("소비하고자 하는 양만큼의 금액이 없는 경우 예외 발생")
     @Test
     void spend_LackOfMoney_ExceptionThrown() {
