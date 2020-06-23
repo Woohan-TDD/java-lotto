@@ -20,4 +20,8 @@ class LottoTicketUtil {
                 .mapToObj(LottoNumber::valueOf)
                 .collect(toList());
     }
+
+    static LottoTickets generateLottoTickets(LottoTicket... tickets) {
+        return new LottoTickets(Arrays.asList(tickets));
+    }
 }
