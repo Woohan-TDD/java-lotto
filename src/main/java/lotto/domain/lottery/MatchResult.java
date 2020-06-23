@@ -5,6 +5,7 @@ import java.util.Objects;
 
 public class MatchResult {
     private static final int MAX_PERCENTAGE = 100;
+
     private final Map<Rank, Long> rankCount;
 
     public MatchResult(final Map<Rank, Long> rankCount) {
