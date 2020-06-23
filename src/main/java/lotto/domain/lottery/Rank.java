@@ -4,41 +4,35 @@ import java.util.Arrays;
 import java.util.function.BiPredicate;
 
 public enum Rank {
-    FIRST(6, (winningLotto, lottoTicket) ->
-            winningLotto.match(lottoTicket) == 6 && winningLotto.excludeBonus(lottoTicket)
-    ),
-    SECOND(5, (winningLotto, lottoTicket) ->
-            winningLotto.match(lottoTicket) == 5 && winningLotto.containsBonus(lottoTicket)
-    ),
-    THIRD(5, (winningLotto, lottoTicket) ->
-            winningLotto.match(lottoTicket) == 5 && winningLotto.excludeBonus(lottoTicket)
-    ),
-    FOURTH(4, (winningLotto, lottoTicket) ->
-            winningLotto.match(lottoTicket) == 4
-    ),
-    FIFTH(3, (winningLotto, lottoTicket) ->
-            winningLotto.match(lottoTicket) == 3
-    ),
-    NOTHING(0, (winningLotto, lottoTicket) ->
-            winningLotto.match(lottoTicket) < 3
-    );
+    FIRST(6, 2_000_000_000, (matchCount, isBonus) -> matchCount == 6 && !isBonus),
+    SECOND(5, 30_000_000, (matchCount, isBonus) -> matchCount == 5 && isBonus),
+    THIRD(5, 1_500_000, (matchCount, isBonus) -> matchCount == 5 && !isBonus),
+    FOURTH(4, 50_000, (matchCount, isBonus) -> matchCount == 4),
+    FIFTH(3, 5_000, (matchCount, isBonus) -> matchCount == 3),
+    NOTHING(0, 0, (matchCount, isBonus) -> matchCount < 3);
 
     private final int matchCount;
-    private final BiPredicate<WinningLotto, LottoTicket> matchPredicate;
+    private final long prize;
+    private final BiPredicate<Integer, Boolean> matchPredicate;
 
-    Rank(final int matchCount, final BiPredicate<WinningLotto, LottoTicket> matchPredicate) {
+    Rank(final int matchCount, final long prize, final BiPredicate<Integer, Boolean> matchPredicate) {
         this.matchCount = matchCount;
+        this.prize = prize;
         this.matchPredicate = matchPredicate;
     }
 
-    static Rank match(final WinningLotto winningLotto, final LottoTicket lottoTicket) {
+    public static Rank match(final int matchCount, final boolean isBonus) {
         return Arrays.stream(values())
-                .filter(rank -> rank.matchRankWith(winningLotto, lottoTicket))
+                .filter(rank -> rank.matchRankWith(matchCount, isBonus))
                 .findFirst()
                 .orElseThrow(IllegalArgumentException::new);
     }
 
-    private boolean matchRankWith(final WinningLotto winningLotto, final LottoTicket lottoTicket) {
+    public long calculateTotalPrize(int count) {
+        return prize * count;
+    }
+
+    private boolean matchRankWith(final Integer winningLotto, final Boolean lottoTicket) {
         return matchPredicate.test(winningLotto, lottoTicket);
     }
 }
