@@ -1,5 +1,6 @@
 package lotto.view;
 
+import java.io.InputStream;
 import java.util.Scanner;
 
 public class ViewFactory {
@@ -16,6 +17,10 @@ public class ViewFactory {
     }
 
     private static Scanner createScanner() {
-        return new Scanner(System.in);
+        return new Scanner(provideSource());
+    }
+
+    private static InputStream provideSource() {
+        return System.in;
     }
 }
