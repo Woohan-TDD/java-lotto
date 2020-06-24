@@ -18,7 +18,7 @@ public class LottoTickets {
     }
 
     public LottoTickets concat(final LottoTickets that) {
-        ArrayList<LottoTicket> concatenatedLottoTickets = new ArrayList<>(this.lottoTickets);
+        List<LottoTicket> concatenatedLottoTickets = new ArrayList<>(this.lottoTickets);
         concatenatedLottoTickets.addAll(that.lottoTickets);
         return new LottoTickets(concatenatedLottoTickets);
     }
