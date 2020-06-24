@@ -23,7 +23,7 @@ public class WinningLotto {
                 .collect(collectingAndThen(groupingBy(rank -> rank, counting()), MatchResult::new));
     }
 
-    Rank match(final LottoTicket ticket) {
+    private Rank match(final LottoTicket ticket) {
         return Rank.match(lottoTicket.match(ticket), containsBonus(ticket));
     }
 

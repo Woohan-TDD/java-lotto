@@ -76,16 +76,6 @@ class WinningLottoTest {
         assertThat(winningLotto.containsBonus(ticket)).isTrue();
     }
 
-    @DisplayName("로또 한장을 입력받아 순위 계산")
-    @Test
-    void match() {
-        LottoNumber bonusNumber = LottoNumber.valueOf(7);
-        WinningLotto winningLotto = new WinningLotto(lottoTicket, bonusNumber);
-        LottoTicket ticket = generateLottoTicket(1, 2, 3, 4, 5, 6);
-
-        assertThat(winningLotto.match(ticket)).isEqualTo(FIRST);
-    }
-
     @DisplayName("로또 여러장을 입력받아 순위 계산")
     @Test
     void matchAll() {
