@@ -19,7 +19,7 @@ class LottoNumberTest {
     }
 
     @DisplayName("로또 숫자의 범위를 벗어났을 때 예외 발생")
-    @ValueSource(ints = {-1, 46})
+    @ValueSource(ints = {0, 46})
     @ParameterizedTest
     void valueOf_IntValue_NumberRangeOutOfBound_ExceptionThrown(final int number) {
         assertThatThrownBy(() -> LottoNumber.valueOf(number))
