@@ -9,18 +9,19 @@ import java.util.stream.Stream;
 import lotto.domain.lottery.LottoNumber;
 import lotto.domain.lottery.LottoTicket;
 
-public class ManualLottoTicketRequest {
+public class LottoTicketRequest {
     private static final String DELIMITER = ",";
+
     private List<Integer> lottoNumbers;
 
-    public ManualLottoTicketRequest(final List<Integer> lottoNumbers) {
+    public LottoTicketRequest(final List<Integer> lottoNumbers) {
         this.lottoNumbers = lottoNumbers;
     }
 
-    public static ManualLottoTicketRequest fromString(final String manualNumber) {
+    public static LottoTicketRequest fromString(final String manualNumber) {
         return Stream.of(manualNumber.split(DELIMITER))
                 .map(number -> Integer.parseInt(number.trim()))
-                .collect(collectingAndThen(toList(), ManualLottoTicketRequest::new));
+                .collect(collectingAndThen(toList(), LottoTicketRequest::new));
     }
 
     public LottoTicket toEntity() {

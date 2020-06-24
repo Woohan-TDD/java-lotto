@@ -25,7 +25,7 @@ public class LottoService {
         int totalSpendMoney = lottoPurchaseRequest.getMoneyAmount();
         Money money = new Money(totalSpendMoney);
         PurchaseAmount purchaseAmount = new PurchaseAmount(lottoPurchaseRequest.getManualPurchaseAmount());
-        List<LottoTicket> lottoTickets = lottoPurchaseRequest.getManualLottoTicketsRequest().toEntity();
+        List<LottoTicket> lottoTickets = lottoPurchaseRequest.getLottoTicketsRequest().toEntity();
 
         validateManualAmount(purchaseAmount, lottoTickets);
 

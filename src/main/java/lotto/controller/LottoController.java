@@ -10,7 +10,7 @@ import lotto.dto.LottoPurchaseResponse;
 import lotto.dto.LottoResultRequest;
 import lotto.dto.LottoResultResponse;
 import lotto.dto.LottoTicketResponse;
-import lotto.dto.ManualLottoTicketsRequest;
+import lotto.dto.LottoTicketsRequest;
 import lotto.service.LottoService;
 import lotto.view.InputView;
 import lotto.view.OutputView;
@@ -41,17 +41,16 @@ public class LottoController {
     }
 
     private LottoResultRequest generateLottoResultRequest(final LottoPurchaseRequest lottoPurchaseRequest,
-            final List<LottoTicketResponse> lottoTicketRespons) {
-        ManualLottoTicketsRequest manualLottoTicketsRequest = lottoTicketRespons.stream()
+            final List<LottoTicketResponse> lottoTicketResponse) {
+        LottoTicketsRequest lottoTicketsRequest = lottoTicketResponse.stream()
                 .map(LottoTicketResponse::getNumbers)
-                .collect(collectingAndThen(toList(), ManualLottoTicketsRequest::listOf));
+                .collect(collectingAndThen(toList(), LottoTicketsRequest::listOf));
         return inputView.inputLottoResultRequest(lottoPurchaseRequest.getMoneyAmount(),
-                manualLottoTicketsRequest);
+                lottoTicketsRequest);
     }
 
-    private LottoResultResponse calculateResult(final LottoResultRequest lottoResultRequest) {
+    private void calculateResult(final LottoResultRequest lottoResultRequest) {
         LottoResultResponse lottoResultResponse = lottoService.calculateStatics(lottoResultRequest);
         outputView.printResult(lottoResultResponse);
-        return lottoResultResponse;
     }
 }

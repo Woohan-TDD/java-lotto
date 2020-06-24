@@ -9,7 +9,7 @@ import java.util.stream.Stream;
 
 import lotto.dto.LottoPurchaseRequest;
 import lotto.dto.LottoResultRequest;
-import lotto.dto.ManualLottoTicketsRequest;
+import lotto.dto.LottoTicketsRequest;
 
 public class InputView {
     private static final String DELIMITER = ",";
@@ -24,15 +24,15 @@ public class InputView {
         System.out.println("\n수동으로 구매할 로또 수를 입력해 주세요.");
         int manualPurchaseCount = inputManualPurchaseCount();
         List<String> manualNumbers = inputManualNumbers(manualPurchaseCount);
-        ManualLottoTicketsRequest manualLottoTicketsRequest = ManualLottoTicketsRequest.fromStrings(manualNumbers);
-        return new LottoPurchaseRequest(purchaseMoney, manualPurchaseCount, manualLottoTicketsRequest);
+        LottoTicketsRequest lottoTicketsRequest = LottoTicketsRequest.fromStrings(manualNumbers);
+        return new LottoPurchaseRequest(purchaseMoney, manualPurchaseCount, lottoTicketsRequest);
     }
 
     public LottoResultRequest inputLottoResultRequest(final int purchaseMoney,
-            final ManualLottoTicketsRequest manualLottoTicketsRequest) {
+            final LottoTicketsRequest lottoTicketsRequest) {
         List<Integer> winningNumbers = inputWinningNumbers();
         int bonusNumber = inputBonusNumber();
-        return new LottoResultRequest(manualLottoTicketsRequest, purchaseMoney, winningNumbers, bonusNumber);
+        return new LottoResultRequest(lottoTicketsRequest, purchaseMoney, winningNumbers, bonusNumber);
     }
 
     private int inputPurchaseMoney() {

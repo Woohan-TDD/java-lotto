@@ -3,13 +3,13 @@ package lotto.dto;
 public class LottoPurchaseRequest {
     private Integer moneyAmount;
     private Integer manualPurchaseAmount;
-    private ManualLottoTicketsRequest manualLottoTicketsRequest;
+    private LottoTicketsRequest lottoTicketsRequest;
 
     public LottoPurchaseRequest(final Integer moneyAmount, final Integer manualPurchaseAmount,
-            final ManualLottoTicketsRequest manualLottoTicketsRequest) {
+            final LottoTicketsRequest lottoTicketsRequest) {
         this.moneyAmount = moneyAmount;
         this.manualPurchaseAmount = manualPurchaseAmount;
-        this.manualLottoTicketsRequest = manualLottoTicketsRequest;
+        this.lottoTicketsRequest = lottoTicketsRequest;
     }
 
     public Integer getMoneyAmount() {
@@ -28,11 +28,11 @@ public class LottoPurchaseRequest {
         this.manualPurchaseAmount = manualPurchaseAmount;
     }
 
-    public ManualLottoTicketsRequest getManualLottoTicketsRequest() {
-        return manualLottoTicketsRequest;
+    public LottoTicketsRequest getLottoTicketsRequest() {
+        return lottoTicketsRequest;
     }
 
-    public void setManualLottoTicketsRequest(final ManualLottoTicketsRequest manualLottoTicketsRequest) {
-        this.manualLottoTicketsRequest = manualLottoTicketsRequest;
+    public void setLottoTicketsRequest(final LottoTicketsRequest lottoTicketsRequest) {
+        this.lottoTicketsRequest = lottoTicketsRequest;
     }
 }
