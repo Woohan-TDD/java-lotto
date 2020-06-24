@@ -77,13 +77,4 @@ class LottoTicketTest {
         LottoTicket lottoTicket = generateLottoTicket(1, 2, 3, 4, 5, 6);
         assertThat(lottoTicket.getLottoNumbers()).isEqualTo(generateLottoNumbers(1, 2, 3, 4, 5, 6));
     }
-
-    @DisplayName("같은 로또 수를 가지는 티켓이 논리적으로 동일한지 확인")
-    @Test
-    void equals() {
-        LottoTicket lottoTicket1 = generateLottoTicket(1, 2, 3, 4, 5, 6);
-        LottoTicket lottoTicket2 = generateLottoTicket(4, 5, 6, 1, 2, 3);
-
-        assertThat(lottoTicket1).isEqualTo(lottoTicket2);
-    }
 }
