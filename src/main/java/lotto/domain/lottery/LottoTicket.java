@@ -6,10 +6,8 @@ import static java.util.stream.Collectors.toList;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collections;
-import java.util.HashSet;
 import java.util.List;
 import java.util.Objects;
-import java.util.Set;
 
 public class LottoTicket {
     public static final int TOTAL_LOTTO_NUMBER = 6;
@@ -62,8 +60,11 @@ public class LottoTicket {
     }
 
     private void validateDuplicate(final List<LottoNumber> lottoNumbers) {
-        final Set<LottoNumber> distinctLottoNumbers = new HashSet<>(lottoNumbers);
-        if (distinctLottoNumbers.size() != lottoNumbers.size()) {
+        long count = lottoNumbers.stream()
+                .distinct()
+                .count();
+
+        if (count != TOTAL_LOTTO_NUMBER) {
             throw new InvalidLottoNumberException("입력받은 로또 수에 중복이 존재합니다: " + lottoNumbers);
         }
     }
