@@ -36,6 +36,6 @@ class MatchResultTest {
 
         long profitRate = matchResult.calculateProfitRate(10_000);
 
-        assertThat(profitRate).isEqualTo(40_000_000L);
+        assertThat(profitRate).isEqualTo(39_999_900L);
     }
 }

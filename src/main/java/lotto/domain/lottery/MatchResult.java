@@ -14,7 +14,11 @@ public class MatchResult {
     }
 
     public long calculateProfitRate(final int totalSpendMoney) {
-        return calculateTotalPrize() * MAX_PERCENTAGE / totalSpendMoney;
+        return calculateProfit(totalSpendMoney) * MAX_PERCENTAGE / totalSpendMoney;
+    }
+
+    private long calculateProfit(final int totalSpendMoney) {
+        return calculateTotalPrize() - totalSpendMoney;
     }
 
     private long calculateTotalPrize() {
