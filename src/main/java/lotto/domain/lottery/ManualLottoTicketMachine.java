@@ -6,9 +6,7 @@ import java.util.Objects;
 
 import lotto.domain.purchase.Money;
 
-public class ManualLottoTicketMachine implements LottoTicketMachine {
-    private static final Money MANUAL_LOTTO_TICKET_PRICE = new Money(1_000);
-
+public class ManualLottoTicketMachine extends AbstractLottoTicketMachine {
     private final List<LottoTicket> lottoTickets;
 
     public ManualLottoTicketMachine(final List<LottoTicket> lottoTickets) {
@@ -17,10 +15,10 @@ public class ManualLottoTicketMachine implements LottoTicketMachine {
     }
 
     @Override
-    public LottoTickets createTickets(final Money money) {
+    protected LottoTickets createTickets(final Money money, final Money price) {
         List<LottoTicket> createdTickets = new ArrayList<>();
         for (LottoTicket lottoTicket : lottoTickets) {
-            money.spend(MANUAL_LOTTO_TICKET_PRICE);
+            money.spend(price);
             createdTickets.add(lottoTicket);
         }
         return new LottoTickets(createdTickets);

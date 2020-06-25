@@ -13,9 +13,7 @@ import java.util.Random;
 
 import lotto.domain.purchase.Money;
 
-public class AutoLottoTicketMachine implements LottoTicketMachine {
-    private static final Money MANUAL_LOTTO_TICKET_PRICE = new Money(1_000);
-
+public class AutoLottoTicketMachine extends AbstractLottoTicketMachine {
     private final Random random;
 
     public AutoLottoTicketMachine(final Random random) {
@@ -24,10 +22,10 @@ public class AutoLottoTicketMachine implements LottoTicketMachine {
     }
 
     @Override
-    public LottoTickets createTickets(final Money money) {
+    protected LottoTickets createTickets(final Money money, final Money price) {
         List<LottoTicket> lottoTickets = new ArrayList<>();
         while (money.hasAvailableAmount()) {
-            money.spend(MANUAL_LOTTO_TICKET_PRICE);
+            money.spend(price);
             LottoTicket ticket = createTicket();
             lottoTickets.add(ticket);
         }
